@@ -85,6 +85,31 @@ initialLoad();
 // Step 2
 
 
+// Create an informational section in the infoDump
+function retrieveBreedInfo() {
+  try {
+    const breedId = breedSelect.value;
+
+    // Find the selected breed's information
+    const selectedBreed = breeds.find((breed) => breed.id === breedId);
+
+    if (selectedBreed) {
+      // Create and append breed information
+      const breedInfo = `
+        <h2>${selectedBreed.name}</h2>
+        <p>${selectedBreed.description}</p>
+        <p><strong>Temperament:</strong> ${selectedBreed.temperament}</p>
+        <p><strong>Origin:</strong> ${selectedBreed.origin}</p>
+        <p><strong>Life Span:</strong> ${selectedBreed.life_span} years</p>
+      `;
+      infoDump.innerHTML = breedInfo;
+    }
+  } catch (err) {
+    console.error("Error fetching breed info:", err);
+  }
+}
+
+
 async function retrieveBreedImg() {
   try {
     const breedId = breedSelect.value;
@@ -106,9 +131,12 @@ async function retrieveBreedImg() {
       Carousel.appendCarousel(breedImg);
     });
 
-    // Activate Carousel buttons
-    Carousel.start();
-   
+    //Activate buttons on the carousel
+    //Carousel.start();
+
+    // Create an informational section in the infoDump
+    retrieveBreedInfo();
+
   } catch (err) {
     console.log(err);
   }
