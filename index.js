@@ -15,12 +15,57 @@ const API_KEY = "live_V1hbANkwoLecakcBbdq9WVvBt2jlOO1R70PJ8n0ch66XNgYHuI03Wa9fsO
 
 /**
  * 1. Create an async function "initialLoad" that does the following:
- * - Retrieve a list of breeds from the cat API using fetch().
- * - Create new <options> for each of these breeds, and append them to breedSelect.
+ *  - Retrieve a list of breeds from the cat API using fetch().
+ *  - Create new <options> for each of these breeds, and append them to breedSelect.
  *  - Each option should have a value attribute equal to the id of the breed.
  *  - Each option should display text equal to the name of the breed.
  * This function should execute immediately.
  */
+
+// Step 1
+
+// Create new header to store API KEY 
+const headers = new Headers({
+  "Content-Type": "application/json",
+  "x-api-key": "API-KEY",
+});
+
+//Create options for request with new header
+const requestOptions = {
+  headers: headers,
+  redirect: "follow",
+};
+
+let breeds = [];
+
+async function initialLoad() {
+  try {
+    // Fetch the list of cat breeds
+    const response = await fetch(
+      "https://api.thecatapi.com/v1/breeds",
+      requestOptions
+    );
+
+    breeds = await response.json();
+
+    //console.log(breeds);
+
+    // Populate the breedSelect element with options
+    breeds.forEach((breed) => {
+      let option = document.createElement("option");
+      option.setAttribute('value', breed.id); // Set the value to the breed ID
+      option.textContent = breed.name; // Set the displayed text to the breed name
+      // console.log(option);
+      // console.log(breedSelect);
+      breedSelect.appendChild(option); // Append the option to the select element
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+initialLoad();
+
 
 /**
  * 2. Create an event handler for breedSelect that does the following:
