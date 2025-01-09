@@ -69,18 +69,54 @@ initialLoad();
 
 /**
  * 2. Create an event handler for breedSelect that does the following:
- * - Retrieve information on the selected breed from the cat API using fetch().
+ *  - Retrieve information on the selected breed from the cat API using fetch().
  *  - Make sure your request is receiving multiple array items!
  *  - Check the API documentation if you're only getting a single object.
- * - For each object in the response array, create a new element for the carousel.
+ *  - For each object in the response array, create a new element for the carousel.
  *  - Append each of these new elements to the carousel.
- * - Use the other data you have been given to create an informational section within the infoDump element.
+ *  - Use the other data you have been given to create an informational section within the infoDump element.
  *  - Be creative with how you create DOM elements and HTML.
  *  - Feel free to edit index.html and styles.css to suit your needs, but be careful!
  *  - Remember that functionality comes first, but user experience and design are important.
- * - Each new selection should clear, re-populate, and restart the Carousel.
- * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
+ *  - Each new selection should clear, re-populate, and restart the Carousel.
+ *  - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
+
+// Step 2
+
+
+async function retrieveBreedImg() {
+  try {
+    const breedId = breedSelect.value;
+
+    // Fetch information on the selected breed
+    const response = await fetch(
+      `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}&limit=6`, // Limit to 6 images for the carousel
+      requestOptions
+    );
+    const data = await response.json();
+
+    console.log(data);
+    // Clear the carousel
+    Carousel.clear();
+    infoDump.textContent = "";
+
+    data.forEach((img) => {
+      let breedImg = Carousel.createCarouselItem(img.url, "...", img.id);
+      Carousel.appendCarousel(breedImg);
+    });
+
+    // Activate Carousel buttons
+    Carousel.start();
+   
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+breedSelect.addEventListener("change", retrieveBreedImg);
+
+
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
