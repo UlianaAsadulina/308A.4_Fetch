@@ -1,5 +1,5 @@
 import * as Carousel from "./Carousel.js";
-// import axios from "axios"; have it don't need to import
+// import axios from "axios"; 
 
 // The breed selection input element.
 const breedSelect = document.getElementById("breedSelect");
@@ -132,7 +132,7 @@ async function retrieveBreedImg() {
     });
 
     //Activate buttons on the carousel
-    //Carousel.start();
+    Carousel.start();
 
     // Create an informational section in the infoDump
     retrieveBreedInfo();
@@ -149,6 +149,7 @@ breedSelect.addEventListener("change", retrieveBreedImg);
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
  */
+
 /**
  * 4. Change all of your fetch() functions to axios!
  * - axios has already been imported for you within index.js.
@@ -158,6 +159,7 @@ breedSelect.addEventListener("change", retrieveBreedImg);
  *   by setting a default header with your API key so that you do not have to
  *   send it manually with all of your requests! You can also set a default base URL!
  */
+
 /**
  * 5. Add axios interceptors to log the time between request and response to the console.
  * - Hint: you already have access to code that does this!
@@ -186,6 +188,7 @@ breedSelect.addEventListener("change", retrieveBreedImg);
  * - In your request interceptor, set the body element's cursor style to "progress."
  * - In your response interceptor, remove the progress cursor style from the body element.
  */
+
 /**
  * 8. To practice posting data, we'll create a system to "favourite" certain images.
  * - The skeleton of this function has already been created for you.
